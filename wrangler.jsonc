@@ -18,5 +18,23 @@
 	"ai": {
 		"binding": "AI"
 	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "llm-chat-app-template-db",
+			"database_id": "00000000-0000-0000-0000-000000000000",
+			"migrations_dir": "migrations"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "FILES",
+			"bucket_name": "llm-chat-app-template-files"
+		}
+	],
+	"vars": {
+		"APP_ENV": "development",
+		"DEFAULT_MODEL": "@cf/meta/llama-3.1-8b-instruct-fp8"
+	},
 	"upload_source_maps": true
 }
