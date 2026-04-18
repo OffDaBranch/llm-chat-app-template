@@ -1,6 +1,6 @@
 /**
  * LLM Chat App Frontend
- * Phase 2: conversation-aware DB-backed chat flow.
+ * Phase 3: restore conversation history from D1 on reload.
  */
 
 // DOM elements
@@ -9,16 +9,16 @@ const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const typingIndicator = document.getElementById("typing-indicator");
 
+// Storage key
+const CONVERSATION_STORAGE_KEY = "branchops_active_conversation_id";
+
 // Chat state
-let conversationId = null;
-let chatHistory = [
-	{
-		role: "assistant",
-		content:
-			"Hello! I'm your DB-backed Cloudflare AI chat assistant. How can I help you today?",
-	},
-];
+let conversationId = localStorage.getItem(CONVERSATION_STORAGE_KEY) || null;
+let chatHistory = [];
 let isProcessing = false;
+
+const DEFAULT_GREETING =
+	"Hello! I'm your DB-backed Cloudflare AI chat assistant. How can I help you today?";
 
 // Auto-resize textarea as user types
 userInput.addEventListener("input", function () {
@@ -37,6 +37,15 @@ userInput.addEventListener("keydown", function (e) {
 // Send button click handler
 sendButton.addEventListener("click", sendMessage);
 
+// Initialize app on load
+window.addEventListener("load", async () => {
+	insertNewChatButton();
+	await restoreConversationOnLoad();
+});
+
+/**
+ * Sends a message to the backend chat API and processes the response.
+ */
 async function sendMessage() {
 	const message = userInput.value.trim();
 
@@ -57,10 +66,11 @@ async function sendMessage() {
 	try {
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
-		assistantMessageEl.innerHTML = "<p></p>";
-		chatMessages.appendChild(assistantMessageEl);
 
-		const assistantTextEl = assistantMessageEl.querySelector("p");
+		const paragraph = document.createElement("p");
+		assistantMessageEl.appendChild(paragraph);
+
+		chatMessages.appendChild(assistantMessageEl);
 		chatMessages.scrollTop = chatMessages.scrollHeight;
 
 		const response = await fetch("/api/chat", {
@@ -81,7 +91,7 @@ async function sendMessage() {
 
 		const responseConversationId = response.headers.get("x-conversation-id");
 		if (responseConversationId) {
-			conversationId = responseConversationId;
+			setConversationId(responseConversationId);
 		}
 
 		if (!response.body) {
@@ -95,7 +105,7 @@ async function sendMessage() {
 		let buffer = "";
 
 		const flushAssistantText = () => {
-			assistantTextEl.textContent = responseText;
+			paragraph.textContent = responseText;
 			chatMessages.scrollTop = chatMessages.scrollHeight;
 		};
 
@@ -158,14 +168,128 @@ async function sendMessage() {
 	}
 }
 
+/**
+ * Restores the saved conversation from D1 on page load.
+ */
+async function restoreConversationOnLoad() {
+	clearChatUi();
+
+	if (!conversationId) {
+		showDefaultGreeting();
+		return;
+	}
+
+	try {
+		const response = await fetch(
+			`/api/conversations/${encodeURIComponent(conversationId)}/messages`,
+		);
+
+		if (response.status === 404) {
+			resetConversation();
+			return;
+		}
+
+		if (!response.ok) {
+			throw new Error("Failed to restore conversation");
+		}
+
+		const data = await response.json();
+		const messages = Array.isArray(data.messages) ? data.messages : [];
+
+		if (messages.length === 0) {
+			showDefaultGreeting();
+			return;
+		}
+
+		chatHistory = messages.map((msg) => ({
+			role: msg.role,
+			content: msg.content,
+		}));
+
+		for (const msg of chatHistory) {
+			if (msg.role === "user" || msg.role === "assistant") {
+				addMessageToChat(msg.role, msg.content);
+			}
+		}
+	} catch (error) {
+		console.error("Restore error:", error);
+		resetConversation();
+	}
+}
+
+/**
+ * Creates a New Chat button next to the send button.
+ */
+function insertNewChatButton() {
+	if (document.getElementById("new-chat-button")) return;
+
+	const newChatButton = document.createElement("button");
+	newChatButton.id = "new-chat-button";
+	newChatButton.type = "button";
+	newChatButton.textContent = "New Chat";
+
+	newChatButton.addEventListener("click", () => {
+		resetConversation();
+		userInput.focus();
+	});
+
+	if (sendButton.parentNode) {
+		sendButton.parentNode.insertBefore(newChatButton, sendButton);
+	}
+}
+
+/**
+ * Saves conversation id in memory + localStorage.
+ */
+function setConversationId(id) {
+	conversationId = id;
+	localStorage.setItem(CONVERSATION_STORAGE_KEY, id);
+}
+
+/**
+ * Clears the current conversation state and starts fresh.
+ */
+function resetConversation() {
+	conversationId = null;
+	chatHistory = [];
+	localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+	clearChatUi();
+	showDefaultGreeting();
+}
+
+/**
+ * Shows the starter assistant greeting.
+ */
+function showDefaultGreeting() {
+	chatHistory = [{ role: "assistant", content: DEFAULT_GREETING }];
+	addMessageToChat("assistant", DEFAULT_GREETING);
+}
+
+/**
+ * Clears all chat messages from the UI.
+ */
+function clearChatUi() {
+	chatMessages.innerHTML = "";
+}
+
+/**
+ * Safely adds a message to the UI.
+ */
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-	messageEl.innerHTML = `<p>${content}</p>`;
+
+	const paragraph = document.createElement("p");
+	paragraph.textContent = content;
+
+	messageEl.appendChild(paragraph);
 	chatMessages.appendChild(messageEl);
 	chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+/**
+ * Parses SSE events from the response stream buffer.
+ */
 function consumeSseEvents(buffer) {
 	let normalized = buffer.replace(/\r/g, "");
 	const events = [];
@@ -192,6 +316,9 @@ function consumeSseEvents(buffer) {
 	return { events, buffer: normalized };
 }
 
+/**
+ * Extracts assistant text from SSE JSON chunks.
+ */
 function extractDeltaText(data) {
 	if (data === "[DONE]") return "";
 
