@@ -1,8 +1,8 @@
 /**
- * Phase 4: knowledge ingestion + DB-backed chat flow.
+ * Phase 5: retrieval-enabled chat + knowledge ingestion.
  */
 
-import { Env, ChatMessage, ChatMode } from "./types";
+import { Env, ChatMessage, ChatMode, Citation } from "./types";
 
 type ChatApiRequest = {
 	conversation_id?: string;
@@ -46,8 +46,18 @@ type DbDocumentChunkRow = {
 	created_at: string;
 };
 
+type RetrievedChunk = {
+	chunk_id: string;
+	document_id: string;
+	document_title: string;
+	chunk_index: number;
+	content: string;
+	token_estimate: number;
+	score: number;
+};
+
 const SYSTEM_PROMPT =
-	"You are a helpful, friendly assistant. Provide concise and accurate responses.";
+	"You are a helpful, friendly assistant. Use any provided reference material when relevant. If the reference material is relevant to the user question, prefer it over guessing. If no reference material is relevant, answer normally and do not pretend you used sources you did not use.";
 
 const corsHeaders: Record<string, string> = {
 	"access-control-allow-origin": "*",
@@ -157,14 +167,23 @@ async function handleChatRequest(
 		await touchConversation(env, conversationId);
 
 		const history = await getConversationMessagesFromDb(env, conversationId);
+		const retrievedChunks = await findRelevantChunks(env, incomingMessage, 3);
+		const referenceMessage = buildReferenceSystemMessage(retrievedChunks);
 
 		const aiMessages: ChatMessage[] = [
 			{ role: "system", content: SYSTEM_PROMPT },
+			...(referenceMessage ? [referenceMessage] : []),
 			...history.map((msg) => ({
 				role: msg.role,
 				content: msg.content,
 			})),
 		];
+
+		const citations: Citation[] = retrievedChunks.map((chunk) => ({
+			type: "document",
+			label: `${chunk.document_title} [chunk ${chunk.chunk_index}]`,
+			source_id: chunk.chunk_id,
+		}));
 
 		const aiStream = (await env.AI.run(env.DEFAULT_MODEL, {
 			messages: aiMessages,
@@ -180,6 +199,7 @@ async function handleChatRequest(
 				conversationId,
 				aiStream,
 				writable,
+				citations,
 			}),
 		);
 
@@ -297,13 +317,7 @@ async function handleUploadDocument(
 				`INSERT INTO document_chunks (id, document_id, chunk_index, content, token_estimate)
          VALUES (?, ?, ?, ?, ?)`,
 			)
-				.bind(
-					chunkId,
-					documentId,
-					i,
-					chunk,
-					estimateTokens(chunk),
-				)
+				.bind(chunkId, documentId, i, chunk, estimateTokens(chunk))
 				.run();
 		}
 
@@ -454,13 +468,160 @@ async function touchConversation(env: Env, conversationId: string): Promise<void
 		.run();
 }
 
+async function findRelevantChunks(
+	env: Env,
+	query: string,
+	limit = 3,
+): Promise<RetrievedChunk[]> {
+	const searchTerms = extractSearchTerms(query);
+
+	if (searchTerms.length === 0) {
+		return [];
+	}
+
+	const result = await env.DB.prepare(
+		`SELECT
+        dc.id AS chunk_id,
+        dc.document_id AS document_id,
+        d.title AS document_title,
+        dc.chunk_index AS chunk_index,
+        dc.content AS content,
+        dc.token_estimate AS token_estimate
+      FROM document_chunks dc
+      INNER JOIN documents d ON d.id = dc.document_id
+      ORDER BY d.created_at DESC, dc.chunk_index ASC`,
+	).all<{
+		chunk_id: string;
+		document_id: string;
+		document_title: string;
+		chunk_index: number;
+		content: string;
+		token_estimate: number;
+	}>();
+
+	const rows = (result.results ?? []) as Array<{
+		chunk_id: string;
+		document_id: string;
+		document_title: string;
+		chunk_index: number;
+		content: string;
+		token_estimate: number;
+	}>;
+
+	const scored = rows
+		.map((row) => ({
+			...row,
+			score: scoreChunk(row.content, searchTerms, query),
+		}))
+		.filter((row) => row.score > 0)
+		.sort((a, b) => b.score - a.score)
+		.slice(0, limit);
+
+	return scored;
+}
+
+function buildReferenceSystemMessage(
+	chunks: RetrievedChunk[],
+): ChatMessage | null {
+	if (chunks.length === 0) {
+		return null;
+	}
+
+	const parts = chunks.map(
+		(chunk, index) =>
+			`[Reference ${index + 1}] ${chunk.document_title} (chunk ${chunk.chunk_index})\n${chunk.content}`,
+	);
+
+	return {
+		role: "system",
+		content:
+			"Reference material from uploaded documents is below. Use it when relevant to the user's request. If it is not relevant, ignore it.\n\n" +
+			parts.join("\n\n"),
+	};
+}
+
+function extractSearchTerms(query: string): string[] {
+	const stopWords = new Set([
+		"the",
+		"and",
+		"for",
+		"with",
+		"that",
+		"this",
+		"what",
+		"when",
+		"where",
+		"which",
+		"about",
+		"your",
+		"from",
+		"have",
+		"into",
+		"will",
+		"would",
+		"should",
+		"could",
+		"them",
+		"they",
+		"then",
+		"than",
+		"were",
+		"been",
+		"being",
+		"also",
+		"just",
+		"like",
+		"want",
+		"need",
+		"help",
+	]);
+
+	return Array.from(
+		new Set(
+			query
+				.toLowerCase()
+				.replace(/[^a-z0-9\s]/g, " ")
+				.split(/\s+/)
+				.map((term) => term.trim())
+				.filter((term) => term.length >= 3 && !stopWords.has(term)),
+		),
+	);
+}
+
+function scoreChunk(
+	content: string,
+	searchTerms: string[],
+	fullQuery: string,
+): number {
+	const normalizedContent = normalizeText(content);
+	const normalizedQuery = normalizeText(fullQuery);
+	let score = 0;
+
+	if (normalizedQuery.length >= 6 && normalizedContent.includes(normalizedQuery)) {
+		score += 8;
+	}
+
+	for (const term of searchTerms) {
+		if (normalizedContent.includes(term)) {
+			score += 3;
+		}
+	}
+
+	return score;
+}
+
+function normalizeText(input: string): string {
+	return input.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
 async function pipeAiStreamAndPersist(args: {
 	env: Env;
 	conversationId: string;
 	aiStream: ReadableStream<Uint8Array>;
 	writable: WritableStream<Uint8Array>;
+	citations: Citation[];
 }): Promise<void> {
-	const { env, conversationId, aiStream, writable } = args;
+	const { env, conversationId, aiStream, writable, citations } = args;
 
 	const reader = aiStream.getReader();
 	const writer = writable.getWriter();
@@ -501,7 +662,7 @@ async function pipeAiStreamAndPersist(args: {
 					conversationId,
 					"assistant",
 					assistantText,
-					JSON.stringify([]),
+					JSON.stringify(citations),
 				)
 				.run();
 
