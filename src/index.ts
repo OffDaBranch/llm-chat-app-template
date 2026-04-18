@@ -1,17 +1,14 @@
 /**
- * Phase 2: DB-backed chat flow for the personal AI MVP.
+ * Phase 4: knowledge ingestion + DB-backed chat flow.
  */
 
 import { Env, ChatMessage, ChatMode } from "./types";
-
-const SYSTEM_PROMPT =
-	"You are a helpful, friendly assistant. Provide concise and accurate responses.";
 
 type ChatApiRequest = {
 	conversation_id?: string;
 	mode?: ChatMode;
 	message?: string;
-	messages?: ChatMessage[]; // legacy fallback
+	messages?: ChatMessage[];
 };
 
 type DbMessageRow = {
@@ -31,6 +28,27 @@ type DbConversationRow = {
 	updated_at: string;
 };
 
+type DbDocumentRow = {
+	id: string;
+	title: string;
+	source_type: string;
+	storage_key: string | null;
+	raw_text: string | null;
+	created_at: string;
+};
+
+type DbDocumentChunkRow = {
+	id: string;
+	document_id: string;
+	chunk_index: number;
+	content: string;
+	token_estimate: number;
+	created_at: string;
+};
+
+const SYSTEM_PROMPT =
+	"You are a helpful, friendly assistant. Provide concise and accurate responses.";
+
 const corsHeaders: Record<string, string> = {
 	"access-control-allow-origin": "*",
 	"access-control-allow-methods": "GET,POST,OPTIONS",
@@ -49,24 +67,42 @@ export default {
 			return new Response(null, { status: 204, headers: corsHeaders });
 		}
 
-		// Frontend / static assets
+		// Static frontend
 		if (url.pathname === "/" || !url.pathname.startsWith("/api/")) {
 			return env.ASSETS.fetch(request);
 		}
 
+		// Chat API
 		if (url.pathname === "/api/chat" && request.method === "POST") {
 			return handleChatRequest(request, env, ctx);
 		}
 
+		// Conversation routes
 		if (url.pathname === "/api/conversations" && request.method === "POST") {
 			return handleCreateConversation(request, env);
 		}
 
-		const messagesMatch = url.pathname.match(
+		const conversationMessagesMatch = url.pathname.match(
 			/^\/api\/conversations\/([^/]+)\/messages$/,
 		);
-		if (messagesMatch && request.method === "GET") {
-			return handleGetConversationMessages(messagesMatch[1], env);
+		if (conversationMessagesMatch && request.method === "GET") {
+			return handleGetConversationMessages(conversationMessagesMatch[1], env);
+		}
+
+		// Document routes
+		if (url.pathname === "/api/documents/upload" && request.method === "POST") {
+			return handleUploadDocument(request, env);
+		}
+
+		if (url.pathname === "/api/documents" && request.method === "GET") {
+			return handleListDocuments(env);
+		}
+
+		const documentChunksMatch = url.pathname.match(
+			/^\/api\/documents\/([^/]+)\/chunks$/,
+		);
+		if (documentChunksMatch && request.method === "GET") {
+			return handleGetDocumentChunks(documentChunksMatch[1], env);
 		}
 
 		if (url.pathname === "/api/health" && request.method === "GET") {
@@ -219,6 +255,137 @@ async function handleGetConversationMessages(
 	}
 }
 
+async function handleUploadDocument(
+	request: Request,
+	env: Env,
+): Promise<Response> {
+	try {
+		const formData = await request.formData();
+		const fileValue = formData.get("file");
+
+		if (!(fileValue instanceof File)) {
+			return jsonResponse({ error: "A file field named 'file' is required" }, 400);
+		}
+
+		const rawText = (await fileValue.text()).trim();
+
+		if (!rawText) {
+			return jsonResponse({ error: "Uploaded file is empty" }, 400);
+		}
+
+		const documentId = crypto.randomUUID();
+		const safeFilename = sanitizeFilename(fileValue.name || "upload.txt");
+		const storageKey = `documents/${documentId}/${safeFilename}`;
+		const title = fileValue.name?.trim() || "Uploaded document";
+
+		await env.FILES.put(storageKey, fileValue);
+
+		await env.DB.prepare(
+			`INSERT INTO documents (id, title, source_type, storage_key, raw_text)
+       VALUES (?, ?, ?, ?, ?)`,
+		)
+			.bind(documentId, title, "upload_text", storageKey, rawText)
+			.run();
+
+		const chunks = chunkText(rawText, 1200, 150);
+
+		for (let i = 0; i < chunks.length; i += 1) {
+			const chunkId = crypto.randomUUID();
+			const chunk = chunks[i];
+
+			await env.DB.prepare(
+				`INSERT INTO document_chunks (id, document_id, chunk_index, content, token_estimate)
+         VALUES (?, ?, ?, ?, ?)`,
+			)
+				.bind(
+					chunkId,
+					documentId,
+					i,
+					chunk,
+					estimateTokens(chunk),
+				)
+				.run();
+		}
+
+		return jsonResponse(
+			{
+				ok: true,
+				document: {
+					id: documentId,
+					title,
+					source_type: "upload_text",
+					storage_key: storageKey,
+					chunk_count: chunks.length,
+				},
+			},
+			201,
+		);
+	} catch (error) {
+		console.error("Error uploading document:", error);
+		return jsonResponse({ error: "Failed to upload document" }, 500);
+	}
+}
+
+async function handleListDocuments(env: Env): Promise<Response> {
+	try {
+		const result = await env.DB.prepare(
+			`SELECT id, title, source_type, storage_key, raw_text, created_at
+       FROM documents
+       ORDER BY created_at DESC`,
+		).all<DbDocumentRow>();
+
+		return jsonResponse(
+			{
+				documents: result.results ?? [],
+			},
+			200,
+		);
+	} catch (error) {
+		console.error("Error listing documents:", error);
+		return jsonResponse({ error: "Failed to list documents" }, 500);
+	}
+}
+
+async function handleGetDocumentChunks(
+	documentId: string,
+	env: Env,
+): Promise<Response> {
+	try {
+		const doc = await env.DB.prepare(
+			`SELECT id, title, source_type, storage_key, raw_text, created_at
+       FROM documents
+       WHERE id = ?
+       LIMIT 1`,
+		)
+			.bind(documentId)
+			.first<DbDocumentRow>();
+
+		if (!doc) {
+			return jsonResponse({ error: "Document not found" }, 404);
+		}
+
+		const result = await env.DB.prepare(
+			`SELECT id, document_id, chunk_index, content, token_estimate, created_at
+       FROM document_chunks
+       WHERE document_id = ?
+       ORDER BY chunk_index ASC`,
+		)
+			.bind(documentId)
+			.all<DbDocumentChunkRow>();
+
+		return jsonResponse(
+			{
+				document: doc,
+				chunks: result.results ?? [],
+			},
+			200,
+		);
+	} catch (error) {
+		console.error("Error loading document chunks:", error);
+		return jsonResponse({ error: "Failed to load document chunks" }, 500);
+	}
+}
+
 async function ensureConversation(
 	env: Env,
 	conversationId: string | undefined,
@@ -356,6 +523,39 @@ async function pipeAiStreamAndPersist(args: {
 	}
 }
 
+function chunkText(text: string, chunkSize = 1200, overlap = 150): string[] {
+	const normalized = text.replace(/\r/g, "").trim();
+	if (!normalized) return [];
+
+	const chunks: string[] = [];
+	let start = 0;
+
+	while (start < normalized.length) {
+		const end = Math.min(start + chunkSize, normalized.length);
+		const chunk = normalized.slice(start, end).trim();
+
+		if (chunk) {
+			chunks.push(chunk);
+		}
+
+		if (end >= normalized.length) {
+			break;
+		}
+
+		start = Math.max(end - overlap, 0);
+	}
+
+	return chunks;
+}
+
+function estimateTokens(text: string): number {
+	return Math.ceil(text.length / 4);
+}
+
+function sanitizeFilename(filename: string): string {
+	return filename.replace(/[^a-zA-Z0-9._-]/g, "_");
+}
+
 function consumeSseEvents(buffer: string): {
 	events: string[];
 	buffer: string;
@@ -417,7 +617,7 @@ function extractLatestUserMessage(messages: ChatMessage[]): string {
 
 function deriveTitle(input: string): string {
 	const trimmed = input.trim();
-	if (!trimmed) return "New conversation";
+	if (!trimmed) return "Untitled";
 	return trimmed.length > 60 ? `${trimmed.slice(0, 60)}…` : trimmed;
 }
 
