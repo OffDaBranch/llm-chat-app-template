@@ -1,6 +1,6 @@
 /**
  * LLM Chat App Frontend
- * Phase 3: restore conversation history from D1 on reload.
+ * Phase 6: restore conversation history and show citations in the UI.
  */
 
 // DOM elements
@@ -14,7 +14,6 @@ const CONVERSATION_STORAGE_KEY = "branchops_active_conversation_id";
 
 // Chat state
 let conversationId = localStorage.getItem(CONVERSATION_STORAGE_KEY) || null;
-let chatHistory = [];
 let isProcessing = false;
 
 const DEFAULT_GREETING =
@@ -60,8 +59,6 @@ async function sendMessage() {
 	userInput.value = "";
 	userInput.style.height = "auto";
 	typingIndicator.classList.add("visible");
-
-	chatHistory.push({ role: "user", content: message });
 
 	try {
 		const assistantMessageEl = document.createElement("div");
@@ -150,9 +147,8 @@ async function sendMessage() {
 			}
 		}
 
-		if (responseText.length > 0) {
-			chatHistory.push({ role: "assistant", content: responseText });
-		}
+		// Reload canonical conversation from server so citations_json is shown
+		await refreshConversationFromServer();
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
@@ -180,40 +176,79 @@ async function restoreConversationOnLoad() {
 	}
 
 	try {
-		const response = await fetch(
-			`/api/conversations/${encodeURIComponent(conversationId)}/messages`,
-		);
+		const restored = await fetchConversationFromServer(conversationId);
 
-		if (response.status === 404) {
+		if (!restored) {
 			resetConversation();
 			return;
 		}
 
-		if (!response.ok) {
-			throw new Error("Failed to restore conversation");
-		}
-
-		const data = await response.json();
-		const messages = Array.isArray(data.messages) ? data.messages : [];
-
-		if (messages.length === 0) {
-			showDefaultGreeting();
-			return;
-		}
-
-		chatHistory = messages.map((msg) => ({
-			role: msg.role,
-			content: msg.content,
-		}));
-
-		for (const msg of chatHistory) {
-			if (msg.role === "user" || msg.role === "assistant") {
-				addMessageToChat(msg.role, msg.content);
-			}
-		}
+		renderConversationMessages(restored.messages);
 	} catch (error) {
 		console.error("Restore error:", error);
 		resetConversation();
+	}
+}
+
+/**
+ * Reload the current conversation from the backend.
+ */
+async function refreshConversationFromServer() {
+	if (!conversationId) return;
+
+	try {
+		const restored = await fetchConversationFromServer(conversationId);
+		if (!restored) return;
+
+		renderConversationMessages(restored.messages);
+	} catch (error) {
+		console.error("Refresh error:", error);
+	}
+}
+
+/**
+ * Fetch conversation and messages from backend.
+ */
+async function fetchConversationFromServer(id) {
+	const response = await fetch(
+		`/api/conversations/${encodeURIComponent(id)}/messages`,
+	);
+
+	if (response.status === 404) {
+		return null;
+	}
+
+	if (!response.ok) {
+		throw new Error("Failed to fetch conversation");
+	}
+
+	return response.json();
+}
+
+/**
+ * Render the whole conversation from server data.
+ */
+function renderConversationMessages(messages) {
+	clearChatUi();
+
+	if (!Array.isArray(messages) || messages.length === 0) {
+		showDefaultGreeting();
+		return;
+	}
+
+	let renderedAny = false;
+
+	for (const msg of messages) {
+		if (msg.role !== "user" && msg.role !== "assistant") {
+			continue;
+		}
+
+		addMessageToChat(msg.role, msg.content, msg.citations_json);
+		renderedAny = true;
+	}
+
+	if (!renderedAny) {
+		showDefaultGreeting();
 	}
 }
 
@@ -251,7 +286,6 @@ function setConversationId(id) {
  */
 function resetConversation() {
 	conversationId = null;
-	chatHistory = [];
 	localStorage.removeItem(CONVERSATION_STORAGE_KEY);
 	clearChatUi();
 	showDefaultGreeting();
@@ -261,7 +295,6 @@ function resetConversation() {
  * Shows the starter assistant greeting.
  */
 function showDefaultGreeting() {
-	chatHistory = [{ role: "assistant", content: DEFAULT_GREETING }];
 	addMessageToChat("assistant", DEFAULT_GREETING);
 }
 
@@ -273,18 +306,72 @@ function clearChatUi() {
 }
 
 /**
- * Safely adds a message to the UI.
+ * Adds a message to the UI.
  */
-function addMessageToChat(role, content) {
+function addMessageToChat(role, content, citationsJson = null) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
 
 	const paragraph = document.createElement("p");
 	paragraph.textContent = content;
-
 	messageEl.appendChild(paragraph);
+
+	if (role === "assistant") {
+		const citations = parseCitations(citationsJson);
+		if (citations.length > 0) {
+			const citationBlock = renderCitationBlock(citations);
+			messageEl.appendChild(citationBlock);
+		}
+	}
+
 	chatMessages.appendChild(messageEl);
 	chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/**
+ * Parse citations_json safely.
+ */
+function parseCitations(citationsJson) {
+	if (!citationsJson) return [];
+
+	try {
+		const parsed = JSON.parse(citationsJson);
+		return Array.isArray(parsed) ? parsed : [];
+	} catch (error) {
+		console.error("Failed to parse citations JSON:", error);
+		return [];
+	}
+}
+
+/**
+ * Render citations below assistant messages.
+ */
+function renderCitationBlock(citations) {
+	const wrapper = document.createElement("div");
+	wrapper.className = "message-citations";
+	wrapper.style.marginTop = "8px";
+	wrapper.style.fontSize = "12px";
+	wrapper.style.opacity = "0.8";
+
+	const title = document.createElement("div");
+	title.textContent = "Sources:";
+	title.style.fontWeight = "600";
+	title.style.marginBottom = "4px";
+	wrapper.appendChild(title);
+
+	const list = document.createElement("ul");
+	list.style.margin = "0";
+	list.style.paddingLeft = "18px";
+
+	for (const citation of citations) {
+		const item = document.createElement("li");
+		item.textContent =
+			citation.label || `${citation.type || "source"}: ${citation.source_id || ""}`;
+		list.appendChild(item);
+	}
+
+	wrapper.appendChild(list);
+	return wrapper;
 }
 
 /**
