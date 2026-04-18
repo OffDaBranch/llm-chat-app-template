@@ -1,6 +1,6 @@
 /**
  * LLM Chat App Frontend
- * Phase 6: restore conversation history and show citations in the UI.
+ * Phase 7: restore conversation history, show citations, and upload .txt knowledge files.
  */
 
 // DOM elements
@@ -9,12 +9,18 @@ const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const typingIndicator = document.getElementById("typing-indicator");
 
+const uploadFileInput = document.getElementById("upload-file-input");
+const uploadButton = document.getElementById("upload-button");
+const uploadStatus = document.getElementById("upload-status");
+const documentsList = document.getElementById("documents-list");
+
 // Storage key
 const CONVERSATION_STORAGE_KEY = "branchops_active_conversation_id";
 
 // Chat state
 let conversationId = localStorage.getItem(CONVERSATION_STORAGE_KEY) || null;
 let isProcessing = false;
+let isUploading = false;
 
 const DEFAULT_GREETING =
 	"Hello! I'm your DB-backed Cloudflare AI chat assistant. How can I help you today?";
@@ -33,13 +39,15 @@ userInput.addEventListener("keydown", function (e) {
 	}
 });
 
-// Send button click handler
+// Button handlers
 sendButton.addEventListener("click", sendMessage);
+uploadButton.addEventListener("click", uploadKnowledgeFile);
 
 // Initialize app on load
 window.addEventListener("load", async () => {
 	insertNewChatButton();
 	await restoreConversationOnLoad();
+	await refreshDocumentList();
 });
 
 /**
@@ -162,6 +170,119 @@ async function sendMessage() {
 		sendButton.disabled = false;
 		userInput.focus();
 	}
+}
+
+/**
+ * Upload a .txt file through the browser UI.
+ */
+async function uploadKnowledgeFile() {
+	if (isUploading) return;
+
+	const file = uploadFileInput.files?.[0];
+
+	if (!file) {
+		setUploadStatus("Please choose a .txt file first.", "error");
+		return;
+	}
+
+	if (!file.name.toLowerCase().endsWith(".txt")) {
+		setUploadStatus("Only .txt files are supported in this version.", "error");
+		return;
+	}
+
+	isUploading = true;
+	uploadButton.disabled = true;
+	setUploadStatus("Uploading file...", "info");
+
+	try {
+		const formData = new FormData();
+		formData.append("file", file);
+
+		const response = await fetch("/api/documents/upload", {
+			method: "POST",
+			body: formData,
+		});
+
+		const result = await response.json();
+
+		if (!response.ok) {
+			throw new Error(result.error || "Upload failed");
+		}
+
+		setUploadStatus(
+			`Uploaded ${result.document.title} successfully. Chunks created: ${result.document.chunk_count}.`,
+			"success",
+		);
+
+		uploadFileInput.value = "";
+		await refreshDocumentList();
+	} catch (error) {
+		console.error("Upload error:", error);
+		setUploadStatus(
+			error.message || "Upload failed. Please try again.",
+			"error",
+		);
+	} finally {
+		isUploading = false;
+		uploadButton.disabled = false;
+	}
+}
+
+/**
+ * Refresh the uploaded document list in the UI.
+ */
+async function refreshDocumentList() {
+	try {
+		const response = await fetch("/api/documents");
+
+		if (!response.ok) {
+			throw new Error("Failed to load documents");
+		}
+
+		const data = await response.json();
+		renderDocumentsList(data.documents || []);
+	} catch (error) {
+		console.error("Document list error:", error);
+		renderDocumentsList([]);
+	}
+}
+
+/**
+ * Render the uploaded document list.
+ */
+function renderDocumentsList(documents) {
+	documentsList.innerHTML = "";
+
+	if (!Array.isArray(documents) || documents.length === 0) {
+		const item = document.createElement("li");
+		item.textContent = "No documents uploaded yet.";
+		documentsList.appendChild(item);
+		return;
+	}
+
+	for (const doc of documents) {
+		const item = document.createElement("li");
+
+		const title = document.createElement("div");
+		title.className = "document-title";
+		title.textContent = doc.title || "Untitled document";
+
+		const meta = document.createElement("div");
+		meta.className = "document-meta";
+		meta.textContent = `${doc.source_type || "unknown"}${doc.created_at ? " • " + doc.created_at : ""}`;
+
+		item.appendChild(title);
+		item.appendChild(meta);
+		documentsList.appendChild(item);
+	}
+}
+
+/**
+ * Show upload status message.
+ */
+function setUploadStatus(message, variant) {
+	uploadStatus.textContent = message;
+	uploadStatus.className = `upload-status ${variant}`;
 }
 
 /**
