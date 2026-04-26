@@ -7,7 +7,10 @@
 	"name": "llm-chat-app-template",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-10-08",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./public"
@@ -22,9 +25,9 @@
 		{
 			"binding": "DB",
 			"database_name": "llm-chat-app-template-db",
-			"database_id": "00000000-0000-0000-0000-000000000000",
+			"database_id": "9a814206-ad5e-42ff-8e6d-4c2bc30c66a7",
 			"migrations_dir": "migrations"
-		}
+		},
 	],
 	"r2_buckets": [
 		{
