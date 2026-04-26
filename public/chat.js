@@ -19,6 +19,7 @@ let chatHistory = [
 	},
 ];
 let isProcessing = false;
+let activeConversationId = null;
 
 // Auto-resize textarea as user types
 userInput.addEventListener("input", function () {
@@ -68,9 +69,9 @@ async function sendMessage() {
 		// Create new assistant response element
 		const assistantMessageEl = document.createElement("div");
 		assistantMessageEl.className = "message assistant-message";
-		assistantMessageEl.innerHTML = "<p></p>";
+		const assistantTextEl = document.createElement("p");
+		assistantMessageEl.appendChild(assistantTextEl);
 		chatMessages.appendChild(assistantMessageEl);
-		const assistantTextEl = assistantMessageEl.querySelector("p");
 
 		// Scroll to bottom
 		chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -82,6 +83,7 @@ async function sendMessage() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
+				conversation_id: activeConversationId,
 				messages: chatHistory,
 			}),
 		});
@@ -93,6 +95,8 @@ async function sendMessage() {
 		if (!response.body) {
 			throw new Error("Response body is null");
 		}
+		activeConversationId =
+			response.headers.get("x-conversation-id") || activeConversationId;
 
 		// Process streaming response
 		const reader = response.body.getReader();
@@ -201,7 +205,9 @@ async function sendMessage() {
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-	messageEl.innerHTML = `<p>${content}</p>`;
+	const textEl = document.createElement("p");
+	textEl.textContent = content;
+	messageEl.appendChild(textEl);
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
