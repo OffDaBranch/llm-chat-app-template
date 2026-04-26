@@ -9,17 +9,17 @@ const chatMessages = document.getElementById("chat-messages");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const typingIndicator = document.getElementById("typing-indicator");
+const conversationList = document.getElementById("conversation-list");
+const newChatButton = document.getElementById("new-chat-button");
+
+const welcomeMessage =
+	"BranchOps AI is online. This chat saves persistent conversations to your D1 memory layer.";
 
 // Chat state
-let chatHistory = [
-	{
-		role: "assistant",
-		content:
-			"Hello! I'm an LLM chat app powered by Cloudflare Workers AI. How can I help you today?",
-	},
-];
+let chatHistory = [{ role: "assistant", content: welcomeMessage }];
 let isProcessing = false;
 let activeConversationId = null;
+let conversations = [];
 
 // Auto-resize textarea as user types
 userInput.addEventListener("input", function () {
@@ -38,6 +38,13 @@ userInput.addEventListener("keydown", function (e) {
 // Send button click handler
 sendButton.addEventListener("click", sendMessage);
 
+// New chat click handler
+newChatButton.addEventListener("click", startNewChat);
+
+// Load saved conversations when the app starts
+fetchConversations();
+registerServiceWorker();
+
 /**
  * Sends a message to the chat API and processes the response
  */
@@ -51,6 +58,7 @@ async function sendMessage() {
 	isProcessing = true;
 	userInput.disabled = true;
 	sendButton.disabled = true;
+	renderConversationList();
 
 	// Add user message to chat
 	addMessageToChat("user", message);
@@ -97,6 +105,7 @@ async function sendMessage() {
 		}
 		activeConversationId =
 			response.headers.get("x-conversation-id") || activeConversationId;
+		renderConversationList();
 
 		// Process streaming response
 		const reader = response.body.getReader();
@@ -181,6 +190,7 @@ async function sendMessage() {
 		if (responseText.length > 0) {
 			chatHistory.push({ role: "assistant", content: responseText });
 		}
+		await fetchConversations();
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
@@ -195,8 +205,142 @@ async function sendMessage() {
 		isProcessing = false;
 		userInput.disabled = false;
 		sendButton.disabled = false;
+		renderConversationList();
 		userInput.focus();
 	}
+}
+
+async function fetchConversations() {
+	try {
+		const response = await fetch("/api/conversations");
+		if (!response.ok) {
+			throw new Error("Failed to fetch conversations");
+		}
+
+		const data = await response.json();
+		conversations = Array.isArray(data.conversations) ? data.conversations : [];
+		renderConversationList();
+	} catch (error) {
+		console.error("Error loading conversations:", error);
+		conversations = [];
+		renderConversationList();
+	}
+}
+
+function renderConversationList() {
+	conversationList.textContent = "";
+
+	if (conversations.length === 0) {
+		const emptyItem = document.createElement("li");
+		const emptyButton = document.createElement("button");
+		emptyButton.type = "button";
+		emptyButton.disabled = true;
+		emptyButton.textContent = "No conversations yet";
+		emptyItem.appendChild(emptyButton);
+		conversationList.appendChild(emptyItem);
+		return;
+	}
+
+	for (const conversation of conversations) {
+		const item = document.createElement("li");
+		const button = document.createElement("button");
+		const title = document.createElement("span");
+		const meta = document.createElement("span");
+
+		button.type = "button";
+		button.dataset.conversationId = conversation.id;
+		button.disabled = isProcessing;
+		if (conversation.id === activeConversationId) {
+			button.classList.add("active");
+		}
+
+		title.className = "conversation-title";
+		title.textContent = conversation.title || "New conversation";
+		meta.className = "conversation-meta";
+		meta.textContent = formatConversationDate(
+			conversation.updated_at || conversation.created_at,
+		);
+
+		button.appendChild(title);
+		button.appendChild(meta);
+		button.addEventListener("click", () => loadConversation(conversation.id));
+		item.appendChild(button);
+		conversationList.appendChild(item);
+	}
+}
+
+async function loadConversation(conversationId) {
+	if (isProcessing || conversationId === activeConversationId) return;
+
+	try {
+		const response = await fetch(
+			`/api/conversations/${encodeURIComponent(conversationId)}/messages`,
+		);
+		if (!response.ok) {
+			throw new Error("Failed to fetch conversation messages");
+		}
+
+		const data = await response.json();
+		activeConversationId = conversationId;
+		chatHistory = normalizeSavedMessages(data.messages);
+		renderChatHistory();
+		renderConversationList();
+		userInput.focus();
+	} catch (error) {
+		console.error("Error loading conversation:", error);
+	}
+}
+
+function startNewChat() {
+	if (isProcessing) return;
+
+	activeConversationId = null;
+	chatHistory = [{ role: "assistant", content: welcomeMessage }];
+	renderChatHistory();
+	renderConversationList();
+	userInput.focus();
+}
+
+function normalizeSavedMessages(messages) {
+	if (!Array.isArray(messages)) return [];
+
+	return messages
+		.filter(
+			(message) =>
+				["system", "user", "assistant"].includes(message.role) &&
+				typeof message.content === "string",
+		)
+		.map((message) => ({
+			role: message.role,
+			content: message.content,
+		}));
+}
+
+function renderChatHistory() {
+	chatMessages.textContent = "";
+
+	const visibleMessages =
+		chatHistory.length > 0
+			? chatHistory.filter((message) => message.role !== "system")
+			: [{ role: "assistant", content: welcomeMessage }];
+
+	for (const message of visibleMessages) {
+		addMessageToChat(message.role, message.content);
+	}
+}
+
+function formatConversationDate(value) {
+	if (!value) return "";
+
+	const date = new Date(value);
+	if (Number.isNaN(date.getTime())) return "";
+
+	return date.toLocaleString([], {
+		month: "short",
+		day: "numeric",
+		hour: "numeric",
+		minute: "2-digit",
+	});
 }
 
 /**
@@ -233,4 +377,14 @@ function consumeSseEvents(buffer) {
 		events.push(dataLines.join("\n"));
 	}
 	return { events, buffer: normalized };
+}
+
+function registerServiceWorker() {
+	if (!("serviceWorker" in navigator)) return;
+
+	window.addEventListener("load", () => {
+		navigator.serviceWorker.register("/service-worker.js").catch((error) => {
+			console.error("Service worker registration failed:", error);
+		});
+	});
 }

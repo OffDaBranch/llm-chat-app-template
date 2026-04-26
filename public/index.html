@@ -3,17 +3,25 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>LLM Chat App</title>
+		<meta name="theme-color" content="#0f172a" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="BranchOps Personal AI" />
+		<link rel="manifest" href="/manifest.webmanifest" />
+		<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/icon.svg" />
+		<title>BranchOps Personal AI</title>
 		<style>
 			:root {
-				--primary-color: #f6821f;
-				--primary-hover: #e67e22;
-				--light-bg: #f9fafb;
-				--border-color: #e5e7eb;
-				--text-color: #1f2937;
-				--text-light: #6b7280;
-				--user-msg-bg: #fff2e6;
-				--assistant-msg-bg: #f3f4f6;
+				--primary-color: #38bdf8;
+				--primary-hover: #0ea5e9;
+				--body-bg: #020617;
+				--panel-bg: #0f172a;
+				--light-bg: #020617;
+				--border-color: #1e293b;
+				--text-color: #e5e7eb;
+				--text-light: #94a3b8;
+				--user-msg-bg: #1e293b;
+				--assistant-msg-bg: #111827;
 			}
 
 			* {
@@ -28,7 +36,8 @@
 					Cantarell, sans-serif;
 				line-height: 1.6;
 				color: var(--text-color);
-				max-width: 800px;
+				background-color: var(--body-bg);
+				max-width: 1000px;
 				margin: 0 auto;
 				padding: 1rem;
 			}
@@ -45,6 +54,96 @@
 				color: var(--primary-color);
 			}
 
+			header p {
+				color: var(--text-light);
+			}
+
+			.app-layout {
+				display: grid;
+				grid-template-columns: 220px minmax(0, 1fr);
+				gap: 1rem;
+			}
+
+			.conversation-sidebar {
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+				overflow: hidden;
+				background-color: var(--panel-bg);
+				height: calc(100vh - 200px);
+				min-height: 400px;
+			}
+
+			.sidebar-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.5rem;
+				padding: 0.75rem;
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.sidebar-header h2 {
+				font-size: 0.95rem;
+			}
+
+			#new-chat-button {
+				padding: 0.4rem 0.6rem;
+				background-color: var(--panel-bg);
+				color: var(--primary-color);
+				border: 1px solid var(--primary-color);
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			#new-chat-button:hover {
+				background-color: var(--assistant-msg-bg);
+			}
+
+			.conversation-list {
+				list-style: none;
+				overflow-y: auto;
+				height: calc(100% - 58px);
+			}
+
+			.conversation-list li {
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.conversation-list button {
+				width: 100%;
+				padding: 0.75rem;
+				background: transparent;
+				border: none;
+				color: var(--text-color);
+				cursor: pointer;
+				font: inherit;
+				text-align: left;
+			}
+
+			.conversation-list button:hover {
+				background-color: var(--assistant-msg-bg);
+			}
+
+			.conversation-list button.active {
+				background-color: var(--user-msg-bg);
+				color: var(--primary-color);
+				font-weight: 600;
+			}
+
+			.conversation-title {
+				display: block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.conversation-meta {
+				display: block;
+				margin-top: 0.15rem;
+				color: var(--text-light);
+				font-size: 0.75rem;
+			}
+
 			.chat-container {
 				display: flex;
 				flex-direction: column;
@@ -53,6 +152,7 @@
 				border: 1px solid var(--border-color);
 				border-radius: 8px;
 				overflow: hidden;
+				background-color: var(--panel-bg);
 			}
 
 			.chat-messages {
@@ -67,6 +167,7 @@
 				padding: 0.75rem;
 				border-radius: 8px;
 				max-width: 80%;
+				border: 1px solid var(--border-color);
 			}
 
 			.message p {
@@ -90,7 +191,7 @@
 				display: flex;
 				padding: 0.75rem;
 				border-top: 1px solid var(--border-color);
-				background-color: white;
+				background-color: var(--panel-bg);
 			}
 
 			#user-input {
@@ -98,16 +199,22 @@
 				padding: 0.75rem;
 				border: 1px solid var(--border-color);
 				border-radius: 4px;
+				background-color: var(--body-bg);
+				color: var(--text-color);
 				font-family: inherit;
 				resize: none;
 				min-height: 44px;
+			}
+
+			#user-input::placeholder {
+				color: var(--text-light);
 			}
 
 			#send-button {
 				margin-left: 0.5rem;
 				padding: 0 1rem;
 				background-color: var(--primary-color);
-				color: white;
+				color: var(--body-bg);
 				border: none;
 				border-radius: 4px;
 				cursor: pointer;
@@ -140,41 +247,67 @@
 				font-size: 0.85rem;
 				color: var(--text-light);
 			}
+
+			@media (max-width: 720px) {
+				.app-layout {
+					grid-template-columns: 1fr;
+				}
+
+				.conversation-sidebar {
+					height: auto;
+					min-height: 0;
+				}
+
+				.conversation-list {
+					max-height: 180px;
+					height: auto;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<header>
-			<h1>Cloudflare AI Chat</h1>
-			<p>Powered by Cloudflare Workers AI</p>
+			<h1>BranchOps Personal AI</h1>
+			<p>Persistent founder memory powered by Cloudflare Workers AI.</p>
 		</header>
 
-		<div class="chat-container">
-			<div id="chat-messages" class="chat-messages">
-				<div class="message assistant-message">
-					<p>
-						Hello! I'm an LLM chat app powered by Cloudflare Workers AI. How can
-						I help you today?
-					</p>
+		<main class="app-layout">
+			<aside class="conversation-sidebar" aria-label="Conversations">
+				<div class="sidebar-header">
+					<h2>Conversations</h2>
+					<button id="new-chat-button" type="button">New Chat</button>
+				</div>
+				<ul id="conversation-list" class="conversation-list"></ul>
+			</aside>
+
+			<div class="chat-container">
+				<div id="chat-messages" class="chat-messages">
+					<div class="message assistant-message">
+						<p>
+							BranchOps AI is online. This chat saves persistent conversations to
+							your D1 memory layer.
+						</p>
+					</div>
+				</div>
+
+				<div class="typing-indicator" id="typing-indicator">
+					BranchOps AI is thinking...
+				</div>
+
+				<div class="message-input">
+					<textarea
+						id="user-input"
+						placeholder="Ask BranchOps AI what to build, fix, document, or automate next..."
+						rows="1"
+						autofocus
+					></textarea>
+					<button id="send-button">Send</button>
 				</div>
 			</div>
-
-			<div class="typing-indicator" id="typing-indicator">
-				AI is thinking...
-			</div>
-
-			<div class="message-input">
-				<textarea
-					id="user-input"
-					placeholder="Type your message here..."
-					rows="1"
-					autofocus
-				></textarea>
-				<button id="send-button">Send</button>
-			</div>
-		</div>
+		</main>
 
 		<footer>
-			<p>Cloudflare Workers AI Chat Template &copy; 2025</p>
+			<p>BranchOps Personal AI&nbsp;&nbsp;Off Da Branch Holdings</p>
 		</footer>
 
 		<!-- Chat app script -->
