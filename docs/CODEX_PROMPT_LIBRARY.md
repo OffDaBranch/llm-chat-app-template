@@ -1,131 +1,261 @@
 # Codex Prompt Library
 
 BranchOps Codex Agency Operating System
-Version: v3.0 Role Competency Max
+Version: v4.2 Unified Final Max - Skill Packs + Cannabis / Hemp / Regulated Markets
 Master Source: OffDaBranchHoldings/Branch-Off-Holdings
 Rule: Do not manually edit local repo copies except when syncing from master.
 
-## Prompt Rules
-Every prompt must require role competency routing, validation, source-of-truth review, Executive Review Board decision, and handoff. Replace bracketed fields before use.
-
-## Reusable Prompts
-
-### Repo Review
+## Master Repo Review
 ```text
-Review [repo] under BranchOps v3.0. Inspect AGENTS.md, docs/BRANCHOPS_REPO_OPERATING_PACK.md, README, config files, source docs, and relevant app files. Classify the task, select role cards, identify risks, validate findings, and return files inspected, gaps, source-of-truth updates, ERB decision, handoff, and next prompt.
+Perform master repo review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Code Feature Build
+## Repo Operating Pack Sync
 ```text
-Build [feature] in [repo] without unrelated refactors. Route through Product, Engineering, QA, Security if relevant, and Source-of-Truth. Inspect existing patterns first, implement the smallest safe slice, run validation, and return full BranchOps final format.
+Perform repo operating pack sync under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Docs-Only Update
+## Skill Pack Creation
 ```text
-Update only documentation files for [objective]. Do not edit application code. Route through Documentation/GitHub Records, Reviewer, Source-of-Truth, and ERB. Validate by refetching or checking changed files and return commit/files/risks.
+Perform skill pack creation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Website Intake Build
+## Skill Eval Creation
 ```text
-Build or revise website intake flow for [offer/audience]. Route through Website Product Lead, Intake Form Architect, Privacy Reviewer, Lead Routing Coordinator, Website QA Reviewer, and Source-of-Truth. Validate fields, privacy copy, lead routing, and responsive behavior.
+Perform skill eval creation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### AI Platform Feature
+## Role Card Creation
 ```text
-Design/build AI feature [feature]. Route through AI Platform Director, Agent Architect, Prompt Systems Engineer, AI Safety Reviewer, Data Quality Analyst, and QA. Inspect data boundaries, memory/retrieval rules, eval needs, and validation path.
+Perform role card creation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Cloudflare Worker Route
+## Department Playbook Creation
 ```text
-Implement Cloudflare Worker route [route]. Inspect wrangler config and existing routes. Route through Workers Engineer, API Integration Engineer, Security Reviewer, QA, and Release Manager if deployment is involved. Validate type/build/smoke path.
+Perform department playbook creation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### D1 Schema Migration
+## Task Routing Update
 ```text
-Plan or implement D1 schema change [change]. Route through D1 Database Engineer, Data Quality Analyst, Backend Engineer, QA, and Release Manager. Include migration, rollback, data privacy, and validation evidence.
+Perform task routing update under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Security Review
+## Repo Review
 ```text
-Perform security/privacy review for [scope]. Inspect auth, secrets exposure risk, data flows, retention, logs, configs, and dependencies. Return findings by severity, required fixes, validation evidence, source-of-truth updates, ERB decision, and handoff.
+Perform repo review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Release Validation
+## Code Feature Build
 ```text
-Validate release [scope]. Route through Release Manager, QA Director, Regression Tester, Security if relevant, and Source-of-Truth. Run or document required checks, classify blockers, and return APPROVE/REVISE/BLOCK/ESCALATE.
+Perform code feature build under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Holding Company Document Update
+## Docs-Only Update
 ```text
-Draft or update governance document [document]. Route through Corporate Governance, Legal/Compliance, Source-of-Truth, and Founder Decision Gate when binding. Preserve draft disclaimers and do not mark executed without authority.
+Perform docs-only update under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### IP Licensing Package
+## Website Intake Build
 ```text
-Create IP licensing package for [asset]. Route through IP Ownership Director, Licensing Director, Royalty Model Designer, Contract Packaging Lead, Finance, Legal/Compliance, and Founder Decision Gate. Mark all terms draft until approved.
+Perform website intake build under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Domain Portfolio Review
+## AI Platform Feature
 ```text
-Review domain portfolio item/list [domains]. Route through Digital Asset Portfolio Director, Domain Registry Manager, DNS/Cloudflare Routing Coordinator, Digital Asset Risk Reviewer, and Source-of-Truth. Classify keep/lease/flip/build/route.
+Perform AI platform feature under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Game Feature
+## Cloudflare Worker Route
 ```text
-Plan/build game feature [feature]. Route through Game Director, Gameplay Engineer, UI/UX Game Designer, QA Playtest Lead, IP/Brand Integration Reviewer, and Source-of-Truth. Validate playability, asset rights, economy impact, and handoff.
+Perform Cloudflare Worker route under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Digital Wearable Feature
+## D1 Schema Migration
 ```text
-Create digital wearable pipeline for [asset]. Route through Digital Wearables Lead, Asset Pipeline Lead, IP/Brand Reviewer, Game Economy Designer if monetized, QA Playtest Lead, and Source-of-Truth.
+Perform D1 schema migration under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Apparel Product System
+## R2 Upload Feature
 ```text
-Build apparel product system for [capsule/product]. Route through Apparel Product Director, Merchandise Manager, SKU Systems Lead, Fulfillment Reviewer, Brand Compliance Reviewer, Margin/Pricing Analyst, and Source-of-Truth.
+Perform R2 upload feature under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Curriculum Build
+## Security Review
 ```text
-Create curriculum product [course/module]. Route through Education Program Director, Curriculum Architect, Lesson Designer, Assessment Designer, Compliance Reviewer, Learner Outcome Analyst, and Source-of-Truth.
+Perform security review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Grant Opportunity Review
+## Release Validation
 ```text
-Review grant opportunity [opportunity]. Route through Grants Director, Funding Researcher, Eligibility Reviewer, Compliance Requirements Reviewer, Budget Narrative Writer, Submission Readiness Reviewer, and Founder Decision Gate if submission-ready.
+Perform release validation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Prospect List
+## Holding Company Document Update
 ```text
-Build prospect list for [offer/market]. Route through Prospect Researcher, Deal Qualification Analyst, CRM Mapping Specialist, Data Quality Analyst, Sales Handoff Owner, and Source-of-Truth. Include filters, fields, and next outreach prompt.
+Perform holding company document update under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Marketing Campaign
+## Trust Activation Workflow
 ```text
-Plan marketing campaign [campaign]. Route through Marketing Director, Content Strategist, Campaign Planner, Brand Copywriter, Compliance Reviewer if claims exist, Performance Analyst, and Source-of-Truth.
+Perform trust activation workflow under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Airtable Update
+## Intercompany Controls Review
 ```text
-Prepare Airtable source-of-truth update for [record/workflow]. Route through Airtable Systems Lead, Data Quality Analyst, Source-of-Truth Reviewer, and owning department. Specify table, fields, owner, reason, and priority.
+Perform intercompany controls review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Notion SOP
+## IP Licensing Package
 ```text
-Create Notion SOP for [process]. Route through Notion Systems Lead, SOP Manager, Department Lead, Reviewer, and Source-of-Truth. Produce page outline, owner, update cadence, and GitHub source reference.
+Perform IP licensing package under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### GitHub Issue/PR Creation
+## Domain Portfolio Review
 ```text
-Create GitHub issue/PR plan for [work]. Route through GitHub Records Lead, Department Lead, Reviewer, and PMO Handoff Owner. Include scope, files, validation, risk, source-of-truth links, and next action.
+Perform domain portfolio review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Executive Review
+## Game Feature
 ```text
-Run Executive Review Board on [completed work]. Evaluate all 14 ERB criteria, decide APPROVE/REVISE/BLOCK/ESCALATE, list required fixes, source-of-truth updates, founder approval need, and next prompt.
+Perform game feature under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
 ```
 
-### Sync Propagation
+## Digital Wearable Feature
 ```text
-Sync BranchOps operating docs from master repo to [target repos]. Do not edit application code. Preserve repo-specific AGENTS.md. Update only requested docs, refetch files, compare v3 headers/content markers, and report commit SHAs and validation notes.
+Perform digital wearable feature under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Apparel Product System
+```text
+Perform apparel product system under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Curriculum Build
+```text
+Perform curriculum build under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Grant Opportunity Review
+```text
+Perform grant opportunity review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Public-Sector Bid Review
+```text
+Perform public-sector bid review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Prospect List
+```text
+Perform prospect list under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Marketing Campaign
+```text
+Perform marketing campaign under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Airtable Update
+```text
+Perform Airtable update under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Notion SOP
+```text
+Perform Notion SOP under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## GitHub Issue/PR Creation
+```text
+Perform GitHub issue/PR creation under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Executive Review
+```text
+Perform executive review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Founder Approval Gate
+```text
+Perform founder approval gate under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Portable CODEX_HOME Setup
+```text
+Perform portable CODEX_HOME setup under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Propagation Across All Repos
+```text
+Perform propagation across all repos under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Do not edit application code, secrets, production systems, legal filings, or submissions unless explicitly authorized.
+```
+
+## Cannabis Business Concept Intake
+```text
+Perform cannabis business concept intake under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Jurisdiction/License Check
+```text
+Perform cannabis jurisdiction/license check under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis License Application Readiness
+```text
+Perform cannabis license application readiness under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Municipal/Zoning Readiness
+```text
+Perform cannabis municipal/zoning readiness under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Packaging/Labeling Review
+```text
+Perform cannabis packaging/labeling review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Testing/COA Review
+```text
+Perform cannabis testing/COA review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Marketing Claims Review
+```text
+Perform cannabis marketing claims review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Banking/Tax Review
+```text
+Perform cannabis banking/tax review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Seed-To-Sale Controls Review
+```text
+Perform cannabis seed-to-sale controls review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Vendor Due Diligence
+```text
+Perform cannabis vendor due diligence under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Recall/Adverse-Event Workflow
+```text
+Perform cannabis recall/adverse-event workflow under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Workforce Training Package
+```text
+Perform cannabis workforce training package under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis IP/Licensing Package
+```text
+Perform cannabis IP/licensing package under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
+```
+
+## Cannabis Regulated-Market Executive Review
+```text
+Perform cannabis regulated-market executive review under BranchOps v4.2. Select department, role card, required skill packs, knowledge sources, permission boundaries, reviewer chain, validation rubric, source-of-truth updates, ERB decision, and founder gate when required. Treat this as cannabis/hemp/regulated-market work: document jurisdiction, product/activity, license requirements, compliance/legal review, public-claims review, and founder gate.
 ```

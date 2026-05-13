@@ -1,174 +1,158 @@
 # BranchOps Repo Operating Pack
 
 BranchOps Codex Agency Operating System
-Version: v3.0 Role Competency Max
+Version: v4.2 Unified Final Max - Skill Packs + Cannabis / Hemp / Regulated Markets
 Master Source: OffDaBranchHoldings/Branch-Off-Holdings
 Rule: Do not manually edit local repo copies except when syncing from master.
 
 Owner: Branch Off Holdings LLC
-Status: Active Codex operating control
+Status: Active master operating doctrine
 
 ## Purpose
-This is the master operating pack for Branch Off Holdings and the broader BranchOps ecosystem. It defines how Codex routes, performs, validates, reviews, escalates, documents, and hands off work across governance, software, AI, websites, games, apparel, IP, licensing, education, workforce, grants, public-sector work, property services, agriculture/food systems, media/content, digital assets, automation, CRM, compliance, cannabis/regulatory risk, finance, and operations.
+This operating pack upgrades BranchOps into a portable, skill-driven, regulated-market-aware Codex operating infrastructure.
 
-## Global Operating Rule
-Codex may not route work to a role by title alone.
+## Core Rule
+Codex may not route work to a job title alone. Before any role performs work, Codex must identify department, role card, mission, scope, required knowledge, required skills, required skill pack, knowledge sources, allowed and blocked systems/files, inputs, outputs, validation checklist, reviewer, escalation triggers, source-of-truth updates, ERB gate, and founder gate when required.
 
-Before any role performs work, Codex must identify:
+## Every-Task Control Chain
+- Primary Agency Owner
+- Department Lead
+- Specialist / Builder
+- Reviewer
+- Risk / Compliance Owner when relevant
+- Source-of-Truth Owner
+- Executive Review Board
+- Founder Decision Gate when required
 
-1. Department
-2. Role card
-3. Mission
-4. Scope
-5. Required knowledge
-6. Required skills
-7. Allowed files/systems
-8. Blocked files/systems
-9. Required inputs
-10. Required outputs
-11. Validation checklist
-12. Required reviewer
-13. Escalation triggers
-14. Source-of-truth updates
-15. Executive Review Board decision gate
+## Cannabis / Hemp / Regulated-Market Rule
+Cannabis, hemp, CBD, THC, cannabinoid, dispensary, cultivation, manufacturing, delivery, wholesale, testing, seed-to-sale, packaging, labeling, medical/adult-use, and regulated-product work must be treated as regulated-market work. Codex must not route cannabis/hemp work to general business roles alone.
 
-## Required Every-Task Control Chain
-Every Codex task must route through these functions:
+## Cannabis Gates
+- Jurisdiction assumption documented
+- Product/activity category classified
+- License class or license requirement checked
+- Cannabis compliance reviewer assigned
+- Legal/regulatory review gate identified
+- Seed-to-sale or batch tracking impact reviewed
+- Testing/COA impact reviewed
+- Packaging/labeling impact reviewed
+- Banking/tax/280E impact reviewed
+- Security/access-control impact reviewed
+- Marketing/public-claims impact reviewed
+- Founder Decision Gate applied when required
 
-1. Primary Agency Owner
-2. Department Lead
-3. Specialist / Builder
-4. Reviewer
-5. Risk / Compliance Owner when relevant
-6. Source-of-Truth Owner
-7. Executive Review Board
-8. Founder Decision Gate when required
+## Strict Cannabis Limits
+- No illegal cannabis production instructions.
+- No cultivation recipes.
+- No extraction parameters.
+- No illicit manufacturing instructions.
+- No trafficking, smuggling, unlicensed shipping, or evasion tactics.
+- No instructions for unlicensed cannabis sales, manufacturing, delivery, or distribution.
+- No dosage instructions.
+- No medical advice or disease-treatment claims.
+- No pregnancy, breastfeeding, pet-health, or unreviewed public claims.
+- No license applications, grants, bids, filings, or submissions without founder/legal/compliance approval.
+- No recommendations to evade state, federal, municipal, banking, tax, age-gating, advertising, or seed-to-sale requirements.
 
-## Required Final Response Format
-Every final Codex response must include:
-
+## Base Final Response Format
 1. Objective
 2. Classification
 3. Primary Agency
 4. Task Type
 5. Departments / Roles Involved
 6. Role Competency Check
-7. Knowledge Sources Inspected
-8. Work Completed
-9. Files Changed
-10. Validation Performed
-11. Risks / Compliance Notes
-12. Source-of-Truth Updates Needed
-13. Executive Review Board Decision
-14. Handoff
-15. Next Executable Codex Prompt
+7. Skill Packs Used
+8. Knowledge Sources Inspected
+9. Work Completed
+10. Files Changed
+11. Validation Performed
+12. Risks / Compliance Notes
+13. Source-of-Truth Updates Needed
+14. Executive Review Board Decision
+15. Founder Decision Needed
+16. Handoff
+17. Next Executable Codex Prompt
 
-## Decision Logic
-Use only:
+## Cannabis / Hemp Final Response Format
+1. Objective
+2. Classification
+3. Cannabis/Hemp/Regulated-Market Flag
+4. Jurisdiction Assumption
+5. Product/Activity Category
+6. License/Regulated Activity Check
+7. Primary Agency
+8. Task Type
+9. Departments / Roles Involved
+10. Role Competency Check
+11. Skill Packs Used
+12. Knowledge Sources Inspected
+13. Work Completed
+14. Files Changed
+15. Validation Performed
+16. Cannabis Compliance Notes
+17. Legal/Tax/Banking/IP/Security Risks
+18. Source-of-Truth Updates Needed
+19. Executive Review Board Decision
+20. Founder Decision Needed
+21. Handoff
+22. Next Executable Codex Prompt
 
-- APPROVE
-- REVISE
-- BLOCK
-- ESCALATE
-
-Never approve work without validation or a documented reason validation could not be performed.
+## Counts
+| Area | Count |
+|---|---:|
+| Base departments | 32 |
+| Cannabis/hemp/regulated-market departments | 30 |
+| Total departments | 62 |
+| Base roles | 320 |
+| Cannabis roles | 300 |
+| Total roles | 620 |
+| Base skill packs | 226 |
+| Cannabis skill packs | 150 |
+| Total skill packs | 376 |
 
 ## Master Operating Documents
-| File | Purpose |
-|---|---|
-| docs/ROLE_COMPETENCY_MATRIX.md | 32-department / 320-role roster with competency lanes and source-of-truth duties |
-| docs/ROLE_CARDS.md | role-card schema, role-title-alone block, full runtime role card requirements |
-| docs/DEPARTMENT_PLAYBOOKS.md | department missions, scope, workflows, validation, reviewers, escalation, handoff duties |
-| docs/TASK_ROUTING_MATRIX.md | task-type to department/role/reviewer/escalation routing |
-| docs/SKILL_PACK_INDEX.md | reusable BranchOps skill packs and validation requirements |
-| docs/VALIDATION_RUBRICS.md | pass/revise/block/escalate rubrics by work type |
-| docs/ESCALATION_MATRIX.md | legal, tax, trust, IP, privacy, security, production, payment, public claim, regulated, grant, scope, source, and validation escalation rules |
-| docs/PERMISSION_BOUNDARIES.md | allowed/blocked file and system edit boundaries by role family |
-| docs/KNOWLEDGE_MAPS.md | repo-type inspection maps and likely validation/source-of-truth paths |
-| docs/SOURCE_OF_TRUTH_RULES.md | required Airtable, Notion, GitHub, Cloudflare, Stripe, Mailchimp, Shopify/Printify, DNS, calendar/task update logic |
-| docs/HANDOFF_TEMPLATE.md | required handoff fields and owner responsibilities |
-| docs/EXECUTIVE_REVIEW_BOARD.md | ERB process, criteria, decision rules, output format |
-| docs/CODEX_PROMPT_LIBRARY.md | reusable prompts for review, build, docs, websites, AI, Cloudflare, D1, security, release, governance, IP, domains, games, apparel, curriculum, grants, sales, marketing, Airtable, Notion, GitHub, ERB, and sync |
-| docs/AGENCY_SYNC_POLICY.md | master-to-repo propagation policy and drift classification |
+- `docs/BRANCHOPS_REPO_OPERATING_PACK.md`
+- `docs/ROLE_COMPETENCY_MATRIX.md`
+- `docs/ROLE_CARDS.md`
+- `docs/DEPARTMENT_PLAYBOOKS.md`
+- `docs/TASK_ROUTING_MATRIX.md`
+- `docs/SKILL_PACK_INDEX.md`
+- `docs/SKILL_PACK_STANDARD.md`
+- `docs/SKILL_EVALS_AND_TEST_PROMPTS.md`
+- `docs/VALIDATION_RUBRICS.md`
+- `docs/ESCALATION_MATRIX.md`
+- `docs/PERMISSION_BOUNDARIES.md`
+- `docs/KNOWLEDGE_MAPS.md`
+- `docs/SOURCE_OF_TRUTH_RULES.md`
+- `docs/HANDOFF_TEMPLATE.md`
+- `docs/EXECUTIVE_REVIEW_BOARD.md`
+- `docs/FOUNDER_DECISION_GATES.md`
+- `docs/CODEX_PROMPT_LIBRARY.md`
+- `docs/AGENCY_SYNC_POLICY.md`
+- `docs/GITHUB_ISSUE_PR_TEMPLATES.md`
+- `docs/CODEX_HOME_PORTABLE_SETUP.md`
+- `docs/REPO_TYPE_ROUTING.md`
+- `docs/OPERATING_SYSTEM_CHANGELOG.md`
+- `docs/CANNABIS_HEMP_REGULATED_MARKETS_PLAYBOOK.md`
+- `docs/CANNABIS_ROLE_CARDS.md`
+- `docs/CANNABIS_LICENSE_ROUTING_MATRIX.md`
+- `docs/CANNABIS_COMPLIANCE_MATRIX.md`
+- `docs/CANNABIS_PRODUCT_CATEGORY_MATRIX.md`
+- `docs/CANNABIS_SEED_TO_SALE_CONTROLS.md`
+- `docs/CANNABIS_PACKAGING_LABELING_REVIEW.md`
+- `docs/CANNABIS_TESTING_COA_REVIEW.md`
+- `docs/CANNABIS_MARKETING_CLAIMS_REVIEW.md`
+- `docs/CANNABIS_SECURITY_AND_ACCESS_CONTROL.md`
+- `docs/CANNABIS_BANKING_TAX_RISK_REVIEW.md`
+- `docs/CANNABIS_RECALL_ADVERSE_EVENT_WORKFLOW.md`
+- `docs/CANNABIS_VENDOR_SUPPLIER_DUE_DILIGENCE.md`
+- `docs/CANNABIS_LICENSE_APPLICATION_READINESS.md`
+- `docs/CANNABIS_MUNICIPAL_ZONING_READINESS.md`
+- `docs/CANNABIS_SOCIAL_EQUITY_PROGRAM_REVIEW.md`
+- `docs/CANNABIS_WORKFORCE_TRAINING_PLAYBOOK.md`
+- `docs/CANNABIS_PUBLIC_SECTOR_GRANT_REVIEW.md`
+- `docs/CANNABIS_IP_BRAND_LICENSING_RULES.md`
+- `docs/CANNABIS_SOURCE_OF_TRUTH_SCHEMA.md`
 
-## Business Universe Covered
-The v3 system covers 32 departments and 320 functional roles:
-
-A. Executive Office / Command Core
-B. Corporate Governance
-C. Trust / Legacy / Succession
-D. Finance / Treasury
-E. Accounting / Tax Coordination
-F. Intercompany / Holding Company Controls
-G. Legal / Compliance / Regulatory
-H. IP / Brand / Licensing
-I. Digital Asset / Domain Portfolio
-J. Product Management
-K. Software Engineering
-L. Cloudflare Infrastructure
-M. AI Platform / Agents
-N. Data / CRM / Source-of-Truth
-O. Automation / Workflow
-P. Security / Privacy / Access Control
-Q. QA / Validation / Release
-R. Website / Growth / Intake
-S. Sales / Partnerships / Licensing Pipeline
-T. Marketing / Content / Distribution
-U. Game Studio
-V. Apparel / Merchandise / Physical Product
-W. Education / Workforce / Curriculum
-X. Property Services / Infrastructure
-Y. Agriculture / Food / Hemp / R&D
-Z. Media / Publishing / IP Content
-AA. Grants / Funding / Public Sector
-AB. HR / Hiring / Workforce Operations
-AC. Customer Success / Support
-AD. Procurement / Vendor / Asset Management
-AE. Analytics / Reporting / Performance
-AF. Operations / PMO
-
-## Required Routing Procedure
-1. Read repo-specific `AGENTS.md` first when operating in a repo.
-2. Classify the task type using `docs/TASK_ROUTING_MATRIX.md`.
-3. Select the department and role card using `docs/ROLE_COMPETENCY_MATRIX.md` and `docs/ROLE_CARDS.md`.
-4. Inspect the applicable repo knowledge map in `docs/KNOWLEDGE_MAPS.md`.
-5. Confirm permission boundaries using `docs/PERMISSION_BOUNDARIES.md`.
-6. Select applicable skill packs from `docs/SKILL_PACK_INDEX.md`.
-7. Perform only allowed work.
-8. Validate using `docs/VALIDATION_RUBRICS.md`.
-9. Escalate using `docs/ESCALATION_MATRIX.md` when triggered.
-10. Identify source-of-truth updates using `docs/SOURCE_OF_TRUTH_RULES.md`.
-11. Run ERB decision using `docs/EXECUTIVE_REVIEW_BOARD.md`.
-12. Produce handoff using `docs/HANDOFF_TEMPLATE.md`.
-
-## Permission Summary
-- No application code edits unless explicitly requested.
-- No secrets, tokens, private keys, OAuth credentials, production credentials, .env changes, bank credentials, tax IDs, or wallet private keys.
-- No production deployment without Deployment Security Reviewer and Release Manager review.
-- No legal/entity/tax/trust changes without Legal/Compliance and Founder Decision Gate.
-- No IP ownership changes without IP Ownership Director review.
-- No pricing, royalties, intercompany flows, or payment logic changes without Finance/Treasury review.
-- No public legal, compliance, grant, tax, regulated, or performance claims without review.
-- No completion claim without validation or documented validation limits.
-
-## Source-Of-Truth Requirement
-Every task must state whether updates are needed in:
-
-- Airtable
-- Notion
-- GitHub
-- Cloudflare
-- Stripe
-- Mailchimp
-- Shopify/Printify
-- Domain registrar / Cloudflare DNS
-- Calendar/tasks
-- Other connected systems
-
-If updates are needed, Codex must specify system, record/page/file/issue, owner role, reason, and priority.
-
-## Sync Doctrine
-This file and the v3 support docs are the master source. Local repo copies should be changed only by explicit sync from master. Repo-specific AGENTS.md files must be preserved and must not be overwritten by sync propagation.
-
-## Standard Codex Prompt
-Review this repository under the BranchOps Codex Agency Operating System v3.0 Role Competency Max. Classify the task, route it through the correct departments and role cards, verify role competency controls, inspect required knowledge sources, complete only allowed work, validate it, identify risks, identify source-of-truth updates, make an Executive Review Board decision, create a handoff, and end with the next executable Codex prompt.
+## Decision Logic
+Use only APPROVE, REVISE, BLOCK, or ESCALATE. Never approve work without validation or a documented reason validation could not be performed.

@@ -1,53 +1,35 @@
 # Agency Sync Policy
 
 BranchOps Codex Agency Operating System
-Version: v3.0 Role Competency Max
+Version: v4.2 Unified Final Max - Skill Packs + Cannabis / Hemp / Regulated Markets
 Master Source: OffDaBranchHoldings/Branch-Off-Holdings
 Rule: Do not manually edit local repo copies except when syncing from master.
 
-## Purpose
-This repo is the master source for the BranchOps Codex Agency Operating System. Other repositories may carry synced copies of the operating pack, but local copies must not drift by manual edits.
+## Master Source
+`OffDaBranchHoldings/Branch-Off-Holdings` controls the operating doctrine. Other repos receive synced copies or references.
 
-## Master Files
-The master operating files are:
+## Local Repo Copy Policy
+Local copies are read-only operating doctrine unless explicit sync from master is requested. Repo-specific `AGENTS.md` instructions must be preserved.
 
-- docs/BRANCHOPS_REPO_OPERATING_PACK.md
-- docs/ROLE_COMPETENCY_MATRIX.md
-- docs/ROLE_CARDS.md
-- docs/DEPARTMENT_PLAYBOOKS.md
-- docs/TASK_ROUTING_MATRIX.md
-- docs/SKILL_PACK_INDEX.md
-- docs/VALIDATION_RUBRICS.md
-- docs/ESCALATION_MATRIX.md
-- docs/PERMISSION_BOUNDARIES.md
-- docs/KNOWLEDGE_MAPS.md
-- docs/SOURCE_OF_TRUTH_RULES.md
-- docs/HANDOFF_TEMPLATE.md
-- docs/EXECUTIVE_REVIEW_BOARD.md
-- docs/CODEX_PROMPT_LIBRARY.md
-- docs/AGENCY_SYNC_POLICY.md
+## Sync Process
+Fetch master, verify v4.2 headers and expected file set, copy only operating docs and portable Codex assets, do not edit application code or secrets, do not overwrite repo-specific AGENTS.md, commit docs-only changes, refetch/compare, and report SHAs.
 
-## Sync Rules
-1. Sync from master to local repos only when explicitly requested or when a repo audit identifies drift.
-2. Update only operating-system docs unless the user explicitly requests application code changes.
-3. Preserve repo-specific AGENTS.md instructions.
-4. Do not overwrite local AGENTS.md files with master text.
-5. After syncing, refetch target files and compare version headers and required content markers.
-6. Report commit SHAs and validation notes per repo.
+## Drift Detection
+Compare headers, file hashes, skill counts, department counts, role counts, and skill eval counts.
 
-## Drift Classification
-| Status | Meaning | Action |
-|---|---|---|
-| Current | file matches current v3 header and required content | no action |
-| Missing | file does not exist | create only if user asks for propagation |
-| Outdated | file exists but has older version or missing competency controls | update from master |
-| Local extension | local repo has additional repo-specific instructions outside synced pack | preserve unless user requests consolidation |
-| Conflict | local content contradicts master doctrine | escalate to Executive Review Board |
+## Master-First Rule
+If doctrine changes, update master first, validate, then propagate.
 
-## Required Sync Validation
-- Verify v3.0 header.
-- Verify role-title-alone prohibition.
-- Verify every-task control chain.
-- Verify final response format.
-- Verify department count and role count if the file contains roster data.
-- Verify no AGENTS.md overwrite occurred unless explicitly requested.
+## Future GitHub Action Checker Design
+A future workflow may verify version headers, skill folder file counts, AGENTS.md preservation, forbidden file changes, and cannabis docs propagation readiness.
+
+## Propagation Prompt
+```text
+Use GitHub to propagate BranchOps v4.2 operating docs and codex-home skills from OffDaBranchHoldings/Branch-Off-Holdings to all BranchOps repos. Update only synced operating docs and portable Codex assets. Preserve repo-specific AGENTS.md. Return repo-by-repo commit SHAs and validation.
+```
+
+## Rollback Plan
+Use Git revert on the docs-only sync commit. Do not reset branches or delete repo-specific instructions.
+
+## Cannabis Docs Sync Policy
+Cannabis/hemp regulated-market docs require legal/compliance/founder-aware review before propagation when content changes claims, license assumptions, product safety, testing, packaging, banking/tax, or public-market guidance.

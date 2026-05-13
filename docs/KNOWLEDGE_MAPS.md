@@ -1,79 +1,457 @@
 # Knowledge Maps
 
 BranchOps Codex Agency Operating System
-Version: v3.0 Role Competency Max
+Version: v4.2 Unified Final Max - Skill Packs + Cannabis / Hemp / Regulated Markets
 Master Source: OffDaBranchHoldings/Branch-Off-Holdings
 Rule: Do not manually edit local repo copies except when syncing from master.
 
-## Purpose
-Knowledge maps tell Codex what to inspect before work begins. A role cannot perform work from title alone; it must inspect the relevant repo map, governing docs, configs, validation path, and source-of-truth systems.
+Each map tells Codex what to inspect first, governing docs, external regulatory sources, configs, likely validation, SOT systems, high-risk files, blocked files, reviewer chain, and founder gate triggers.
 
-## Website Repo
-- Inspect first: `AGENTS.md`, `README.md`, `docs/`, `package.json`, app routes/pages/components, forms, analytics, privacy content, deployment config.
-- Governing docs: `BRANCHOPS_REPO_OPERATING_PACK.md`, `TASK_ROUTING_MATRIX.md`, `PERMISSION_BOUNDARIES.md`, `VALIDATION_RUBRICS.md`.
-- Configs that matter: framework config, env examples, Cloudflare/Vercel config, form handlers, analytics/SEO metadata.
-- Likely validation: typecheck, lint, build, responsive/manual browser check, form smoke test.
-- Source-of-truth updates: GitHub docs, Airtable lead/CRM mapping, Notion SOP, Mailchimp audience/campaign, Cloudflare/Vercel if deployed.
+## 1. Website repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
 
-## AI / Cloudflare Repo
-- Inspect first: `AGENTS.md`, `README.md`, `wrangler.*`, `package.json`, `workers/`, `src/`, `db/schema.sql`, `migrations/`, `docs/`.
-- Governing docs: Cloudflare docs, AI platform docs, security/privacy rules, validation rubrics.
-- Configs that matter: Worker bindings, D1/R2/KV/Queues/AI Gateway config, auth/access config, route definitions.
-- Likely validation: typecheck, build, route smoke test, Wrangler dry run/dev, migration validation.
-- Source-of-truth updates: GitHub, Cloudflare, Airtable system registry, Notion SOP, security review records.
 
-## Corporate Governance Repo
-- Inspect first: `AGENTS.md`, `docs/`, `source-authority/`, registers, policies, resolutions, agreements, document indexes.
-- Governing docs: source authority hierarchy, legal/compliance rules, permission boundaries, escalation matrix.
-- Configs that matter: document IDs, version history, signing status, entity layer, source authority references.
-- Likely validation: source authority check, document status check, legal disclaimer presence, no secrets/tax IDs.
-- Source-of-truth updates: GitHub controlled docs, Airtable registries, Notion policies, founder/legal review queues.
+## 2. AI / Cloudflare repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
 
-## Game Repo
-- Inspect first: `AGENTS.md`, `README.md`, game engine config, package/project files, assets, scenes, gameplay code, design docs.
-- Governing docs: Game Studio playbook, IP/Brand rules, validation rubrics, permission boundaries.
-- Configs that matter: engine/build config, asset manifests, licensing notes, economy configs, platform targets.
-- Likely validation: build/run/playtest, asset license check, economy/IP review, screenshot or smoke evidence.
-- Source-of-truth updates: GitHub, Notion game design docs, Airtable asset registry, IP register, release notes.
 
-## Mobile App Repo
-- Inspect first: `AGENTS.md`, `README.md`, project config, package files, app source, signing/privacy docs, tests.
-- Governing docs: Mobile/Engineering role cards, security/privacy, release validation, permission boundaries.
-- Configs that matter: bundle IDs, signing config, API endpoints, permissions, privacy manifests, CI config.
-- Likely validation: build, targeted test, simulator/device smoke, privacy/auth review if relevant.
-- Source-of-truth updates: GitHub, Notion release notes/SOP, Airtable product roadmap, app store/release queue when applicable.
+## 3. Corporate governance repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
 
-## Brand/IP Repo
-- Inspect first: `AGENTS.md`, brand docs, IP registers, licensing docs, asset lists, trademark/copyright notes.
-- Governing docs: IP/Brand/Licensing playbook, permission boundaries, source-of-truth rules.
-- Configs that matter: asset IDs, ownership status, license terms, permitted use, royalty notes.
-- Likely validation: ownership/source check, brand usage review, legal/finance escalation for terms.
-- Source-of-truth updates: GitHub, Airtable IP registry, Notion brand manual, licensing pipeline.
 
-## Operations/Automation Repo
-- Inspect first: `AGENTS.md`, `README.md`, scripts, workflows, `.github/workflows`, docs, config examples.
-- Governing docs: Automation/Workflow playbook, security/privacy, validation rubrics, sync policy.
-- Configs that matter: workflow triggers, permissions, tokens references, schedules, API targets.
-- Likely validation: dry run, unit/script test, action syntax check, failure recovery review.
-- Source-of-truth updates: GitHub, Airtable workflow registry, Notion SOP, calendar/tasks for scheduled jobs.
+## 4. Game repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
 
-## Curriculum/Workforce Repo
-- Inspect first: `AGENTS.md`, curriculum docs, lessons, assessments, outcomes, compliance notes, source references.
-- Governing docs: Education/Workforce playbook, validation rubrics, source-of-truth rules.
-- Configs that matter: module structure, assessment criteria, certificate claims, learner outcome tracking.
-- Likely validation: curriculum QA review, outcome alignment, compliance check, source check.
-- Source-of-truth updates: GitHub, Notion curriculum pages, Airtable learner/product registry, grant/workforce records.
 
-## Public-Sector/Grants Repo
-- Inspect first: `AGENTS.md`, opportunity docs, solicitations, eligibility files, budgets, checklists, compliance requirements.
-- Governing docs: Grants/Public Sector playbook, escalation matrix, permission boundaries.
-- Configs that matter: deadlines, submission portals, eligibility fields, required attachments, budget narratives.
-- Likely validation: eligibility review, compliance checklist, budget/document readiness, founder/legal gate.
-- Source-of-truth updates: Airtable opportunities, Notion pursuit brief, GitHub package docs, calendar/tasks.
+## 5. Mobile app repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
 
-## Data/CRM Repo
-- Inspect first: `AGENTS.md`, schema docs, Airtable/CRM mappings, Notion docs, reports, dedupe rules, pipelines.
-- Governing docs: Data/CRM playbook, source-of-truth rules, privacy/security, analytics/reporting rules.
-- Configs that matter: field schemas, record ownership, IDs, sync jobs, API scopes, retention rules.
-- Likely validation: schema/field review, dedupe check, privacy review, sample record check.
-- Source-of-truth updates: Airtable, Notion, GitHub docs, CRM/pipeline, reporting dashboards.
+
+## 6. Brand/IP repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 7. Operations/automation repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 8. Curriculum/workforce repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 9. Public-sector/grants repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 10. Data/CRM repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 11. Apparel/merch repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 12. Property services repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 13. Agriculture/R&D repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 14. Media/content repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 15. Portable Codex OS repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`. |
+| External regulatory source to verify | Primary official docs for applicable platform, law, agency, or vendor when current requirements matter. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | Legal/entity/tax/trust, IP ownership, pricing/payment, production deploy, public launch, contracts, grants/bids. |
+
+
+## 16. Cannabis licensing repo/document system
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 17. Cannabis compliance repo/document system
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 18. Hemp/agriculture repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 19. Cannabis product R&D repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 20. Cannabis retail/dispensary repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 21. Cannabis manufacturing/processing repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 22. Cannabis delivery/distribution repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 23. Cannabis seed-to-sale/inventory system
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 24. Cannabis website/marketing repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 25. Cannabis workforce/curriculum repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 26. Cannabis grants/public-sector repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 27. Cannabis IP/brand/licensing repo
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 28. Cannabis finance/tax/banking records
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 29. Cannabis facility/real-estate readiness records
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
+
+
+## 30. Cannabis vendor/white-label records
+| Field | Guidance |
+|---|---|
+| Files to inspect first | `AGENTS.md`, `README.md`, `docs/BRANCHOPS_REPO_OPERATING_PACK.md`, relevant `docs/*`, package/config files when code is in scope. |
+| Docs governing work | `docs/TASK_ROUTING_MATRIX.md`, `docs/SKILL_PACK_INDEX.md`, `docs/PERMISSION_BOUNDARIES.md`, `docs/VALIDATION_RUBRICS.md`, `docs/SOURCE_OF_TRUTH_RULES.md`; cannabis-specific docs under `docs/CANNABIS_*`. |
+| External regulatory source to verify | State cannabis/hemp regulator, municipal/zoning authority, seed-to-sale provider, testing/COA sources, tax/banking counsel handoff. |
+| Configs that matter | `package.json`, workflow files, deployment configs, schema files, app configs when explicitly in scope. |
+| Validation commands likely to apply | Docs: header/count/link checks. Code: repo-specific build/typecheck/test only when code changes are requested. |
+| Source-of-truth systems | GitHub, Airtable, Notion, calendar/tasks; state cannabis portal, seed-to-sale, compliance calendar, training, vendor/license records. |
+| High-risk files | Secrets/auth/deploy/payment/legal/tax/IP/regulated-market files; public claims; private data. |
+| Blocked files | `.env`, secrets, tokens, private keys, OAuth credentials, production credentials. |
+| Reviewer chain | Department Lead -> Specialist Reviewer -> Risk/Compliance -> SOT -> ERB -> Founder Gate when triggered. |
+| Founder gate triggers | License submission, public claim, product launch, facility commitment, banking/tax/280E, partner/licensee commitment, legal/regulatory filing. |
